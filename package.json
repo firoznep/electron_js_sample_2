@@ -1,0 +1,20 @@
+{
+  "name": "electron_fleet",
+  "version": "1.0.0",
+  "description": "Made by firoz",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev:start": "nodemon --exec electron ."
+  },
+  "keywords": [
+    "electron",
+    "fleet"
+  ],
+  "author": "Firoz",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.1.0",
+    "nodemon": "^3.0.1"
+  }
+}
