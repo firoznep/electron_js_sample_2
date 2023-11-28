@@ -1,4 +1,14 @@
-const { app, BrowserWindow, webContents } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  webContents,
+  desktopCapturer,
+  ipcMain,
+} = require("electron");
+const fs = require("node:fs");
+const path = require("node:path");
+
+let data = { name: "Khan", age: 12 };
 
 let win, childWin, welcomeMessage;
 
@@ -10,7 +20,9 @@ const createMainWindow = () => {
     minWidth: 400,
     minHeight: 300,
     webPreferences: {
-      nodeIntegration: true,
+      // nodeIntegration: true,
+      // contextIsolation: true,
+      preload: path.join(__dirname, "preload.js"),
     },
   });
   win.webContents.openDevTools();
@@ -36,11 +48,11 @@ const createMainWindow = () => {
     titleBarStyle: "hidden",
   });
 
-  win.setBackgroundColor("blueviolet");
+  win.setBackgroundColor("#8a8a8a");
 
   win.loadFile("./public/index.html");
 
-  childWin.loadFile("./public/childindex.html");
+  childWin.loadFile("./public/child_index.html");
   childWin.removeMenu();
 
   welcomeMessage.loadFile("./public/welcome.html");
@@ -49,25 +61,38 @@ const createMainWindow = () => {
 
 app.whenReady().then((val) => {
   createMainWindow();
-  // childWin.show();
 
-  welcomeMessage.show();
+  ipcMain.handle("data", () => data);
 
-  setTimeout(() => {
-    welcomeMessage.hide();
-    welcomeMessage = null;
-  }, 5000);
+  // const fileName = "test.md";
+  // fs.writeFileSync(fileName, "hello Electron...", () => {
+  //   app.addRecentDocument(path.join(__dirname, fileName));
+  //   console.log("file created...");
+  // });
 
   // console.log(webContents.getFocusedWebContents());
 
-  win.on("blur", (e, param) => {
-    childWin.minimize();
+  win.on("closed", () => {
+    win = null;
   });
-  win.on("focus", (e, param) => {
-    childWin.hide();
+
+  childWin.on("closed", () => {
+    childWin = null;
+  });
+
+  welcomeMessage.on("closed", () => {
+    welcomeMessage = null;
+  });
+
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createMainWindow();
+    }
   });
 });
 
 app.on("window-all-closed", () => {
-  win = null;
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
 });

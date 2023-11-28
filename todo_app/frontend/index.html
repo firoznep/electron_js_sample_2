@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <meta http-equiv="Content-Security-Policy" content="Script-src 'self'" /> -->
+    <link rel="stylesheet" href="./style.css" />
+    <title>Todo App</title>
+  </head>
+  <body>
+    <header>
+      <h1>Todo App</h1>
+      <div id="add-search-container">
+        <button id="add-btn">+</button>
+        <input type="text" name="search" placeholder="Search" />
+      </div>
+    </header>
+
+    <main>
+      <div id="model-container">
+        <input
+          type="text"
+          id="add-field"
+          name="add-field"
+          placeholder="Add Item Here!"
+        />
+        <br />
+        <div>
+          <button type="submit" id="submit-item">Submit</button>
+          <button id="cancel">Cancel</button>
+        </div>
+      </div>
+
+      <div id="list-container">
+        <ol id="todo-list">
+          <li>item one</li>
+          <li>item two</li>
+          <li>item three</li>
+        </ol>
+      </div>
+      <div id="error">
+        <p>Empty Field!</p>
+        <button id="err-btn">X</button>
+      </div>
+    </main>
+
+    <script src="./app.js"></script>
+    <script>
+      require("electron");
+    </script>
+  </body>
+</html>

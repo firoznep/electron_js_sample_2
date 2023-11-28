@@ -3,10 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="Script-src 'self'" />
+    <link rel="stylesheet" href="./style.css" />
     <title>Electron Fleet</title>
   </head>
   <body style="color: white">
-    <h1>Electron Fleet</h1>
-    <video src="/pub/vd.mp4" controls width="250px">video</video>
+    <header>
+      <strong>Electron Fleet</strong>
+      <strong id="user"></strong>
+    </header>
+    <div>
+      <a href="https://www.google.com" target="_blank">Google</a>
+      <!-- <a href="./child_index.html" target="_blank">child page</a> -->
+    </div>
+
+    <button id="sec-page">Second Page open</button>
+
+    <footer><span>CopyRigh C</span></footer>
+    <!-- <video src="/pub/vd.mp4" controls width="250px">video</video> -->
+
+    <script src="../renderer.js"></script>
   </body>
 </html>
